@@ -125,21 +125,22 @@ if ! shopt -oq posix; then
 fi
 #-----------------------------------------------------------------------------
 #cd + pwd
-cd() { builtin cd "$@" && pwd; }
+#cd() { builtin cd "$@" && pwd; }
 
 #cd + ls 
-cd() { builtin cd "$@" && pwd && ls; }
+#cd() { builtin cd "$@" && pwd && ls; }
 
 #short cut
 alias at='source ~/tensorflow/bin/activate'
 alias sn='shutdown now'
+alias op='cd ~/work/md_document/today_issue && code .'
 
 #script save
 #alias cdss='cd ~/catkin_ws/src/RSD/src/save_terminal'
 #alias cdcap='cd ~/catkin_ws/src/RSD/src/save_success'
 
-alias rlcap='rosrun image_view image_saver image:=/image_capture'
-alias rsd='rosrun RSD DQNAgent.py'
+#alias rlcap='rosrun image_view image_saver image:=/image_capture'
+#alias rsd='rosrun RSD DQNAgent.py'
 
 
 #gedit .bashrc
@@ -147,8 +148,8 @@ alias sb='source ~/.bashrc'
 alias eb='gedit ~/.bashrc'
 
 #office
-alias lo='libreoffice --writer'
-alias ch='/usr/bin/google-chrome-stable'
+#alias lo='libreoffice --writer'
+#alias ch='/usr/bin/google-chrome-stable'
 
 #ROS Control
 alias sb='source ~/.bashrc'
@@ -157,38 +158,45 @@ alias cw='cd ~/catkin_ws'
 alias cs='cd ~/catkin_ws/src'
 alias cm='cd ~/catkin_ws && catkin_make'
 #
-alias goto='rosservice call /multi_setpoint_local -- POINT'
+#alias goto='rosservice call /multi_setpoint_local -- POINT'
 alias offboard='rostopic pub /multi/set_mode std_msgs/String "offboard"'
 alias land='rostopic pub /multi/set_mode std_msgs/String "auto.land"'
 alias arm='rostopic pub /multi/arming std_msgs/Bool 1'
 alias disarm='rostopic pub /multi/arming std_msgs/Bool 0'
 
-alias rlworld='roslaunch swarm_ctrl_pkg iitp_test.launch'
-alias rlpid='roslaunch selfie_drone selfie.launch' 
-alias rldetect='roslaunch tensorflow_object_detector usb_cam_detector.launch'
-alias rlssd='roslaunch ssd_people_detector_ros usb_cam_detector.launch'
+#alias rlworld='roslaunch swarm_ctrl_pkg iitp_test.launch'
+#alias rlpid='roslaunch selfie_drone selfie.launch' 
+#alias rldetect='roslaunch tensorflow_object_detector usb_cam_detector.launch'
+#alias rlssd='roslaunch ssd_people_detector_ros usb_cam_detector.launch'
 
 source  /opt/ros/melodic/setup.bash
 source ~/catkin_ws/devel/setup.bash
-source ~/Firmware/Tools/setup_gazebo.bash ~/Firmware ~/Firmware/build/posix_sitl_default
-export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/Firmware
-export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/Firmware/Tools/sitl_gazebo
+#source ~/Firmware/Tools/setup_gazebo.bash ~/Firmware ~/Firmware/build/posix_sitl_default
+#export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/Firmware
+#export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/Firmware/Tools/sitl_gazebo
 
-#로스 기본 설정
-#export ROS_MASTER_URI=http://localhost:11311 
-#export ROS_HOSTNAME=localhost
+export ROS_MASTER_URI=http://localhost:11311
+export ROS_HOSTNAME=localhost
 
-#로스에서 핫스팟이용시 (ingjae)
 #export ROS_MASTER_URI=http://192.168.43.116:11311
 #export ROS_HOSTNAME=192.168.43.116
 
-#로스에서 랜선을 이용할 때
-export ROS_MASTER_URI=http://localhost:11311
-export ROS_HOSTNAME=169.254.170.230
+#export ROS_MASTER_URI=http://localhost:11311
+#export ROS_HOSTNAME=169.254.170.230
 
+function goto() {
+
+    rostopic pub /move_base_simple/goal geometry_msgs/PoseStamped '{header: {stamp: now, frame_id: "map"}, pose: {position: {x: '$1', y: '$2', z: 0.0}, orientation: {w: '$3'}}}'
+}
 
 export ROS_LAUNCH_SSH_UNKNOWN=1
 export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:/usr/include/python2.7/"
+
+export TURTLEBOT3_MODEL=waffle_pi
+
+
+
+
   
 ```
 
