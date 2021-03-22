@@ -1,7 +1,6 @@
 # .bashrc
     작성일자 19년 12월 27일 
-    작성자 황인재
-    최종 수정일 19년 12월 27일
+    최종 수정일 21년 3월 22일
   
 
 ```bash
@@ -123,78 +122,58 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-#-----------------------------------------------------------------------------
-#cd + pwd
-#cd() { builtin cd "$@" && pwd; }
-
-#cd + ls 
-#cd() { builtin cd "$@" && pwd && ls; }
-
-#short cut
-alias at='source ~/tensorflow/bin/activate'
-alias sn='shutdown now'
-alias op='cd ~/work/md_document/today_issue && code .'
-
-#script save
-#alias cdss='cd ~/catkin_ws/src/RSD/src/save_terminal'
-#alias cdcap='cd ~/catkin_ws/src/RSD/src/save_success'
-
-#alias rlcap='rosrun image_view image_saver image:=/image_capture'
-#alias rsd='rosrun RSD DQNAgent.py'
+# git hub
+alias gp='git pull'
+alias gs='git status'
+alias gc='git clone'
 
 
-#gedit .bashrc
+#custom 
+alias snow='shutdown now'
+
+
 alias sb='source ~/.bashrc'
 alias eb='gedit ~/.bashrc'
 
-#office
-#alias lo='libreoffice --writer'
-#alias ch='/usr/bin/google-chrome-stable'
+alias co='code .'
 
-#ROS Control
-alias sb='source ~/.bashrc'
-alias eb='gedit ~/.bashrc'
+alias mc='make clean'
+alias mk='make'
+
+# catkin_ws
 alias cw='cd ~/catkin_ws'
 alias cs='cd ~/catkin_ws/src'
 alias cm='cd ~/catkin_ws && catkin_make'
-#
-#alias goto='rosservice call /multi_setpoint_local -- POINT'
-alias offboard='rostopic pub /multi/set_mode std_msgs/String "offboard"'
-alias land='rostopic pub /multi/set_mode std_msgs/String "auto.land"'
-alias arm='rostopic pub /multi/arming std_msgs/Bool 1'
-alias disarm='rostopic pub /multi/arming std_msgs/Bool 0'
+alias cst='source ~/catkin_ws/devel/setup.bash'
 
-#alias rlworld='roslaunch swarm_ctrl_pkg iitp_test.launch'
-#alias rlpid='roslaunch selfie_drone selfie.launch' 
-#alias rldetect='roslaunch tensorflow_object_detector usb_cam_detector.launch'
-#alias rlssd='roslaunch ssd_people_detector_ros usb_cam_detector.launch'
+# datkin_ws
+alias dw='cd ~/datkin_ws'
+alias ds='cd ~/datkin_ws/src'
+alias dm='cd ~/datkin_ws && catkin_make'
+alias dst='source ~/datkin_ws/devel/setup.bash'
+
+
+alias can='sudo ip link set can0 type can bitrate 1000000 && sudo ifconfig can0 up && sudo ifconfig can0 txqueuelen 1000'
+
 
 source  /opt/ros/melodic/setup.bash
 source ~/catkin_ws/devel/setup.bash
-#source ~/Firmware/Tools/setup_gazebo.bash ~/Firmware ~/Firmware/build/posix_sitl_default
-#export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/Firmware
-#export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/Firmware/Tools/sitl_gazebo
+#source ~/datkin_ws/devel/setup.bash
 
-export ROS_MASTER_URI=http://localhost:11311
-export ROS_HOSTNAME=localhost
-
-#export ROS_MASTER_URI=http://192.168.43.116:11311
-#export ROS_HOSTNAME=192.168.43.116
-
-#export ROS_MASTER_URI=http://localhost:11311
-#export ROS_HOSTNAME=169.254.170.230
-
-function goto() {
-
-    rostopic pub /move_base_simple/goal geometry_msgs/PoseStamped '{header: {stamp: now, frame_id: "map"}, pose: {position: {x: '$1', y: '$2', z: 0.0}, orientation: {w: '$3'}}}'
-}
-
+#ROS Network
+export ROS_MASTER_URI=http://192.168.0.36:11311
+export ROS_HOSTNAME=192.168.0.36
 export ROS_LAUNCH_SSH_UNKNOWN=1
+
 export CPLUS_INCLUDE_PATH="$CPLUS_INCLUDE_PATH:/usr/include/python2.7/"
 
-export TURTLEBOT3_MODEL=waffle_pi
-
-
+#CUDA PATH
+export PATH=$PATH:/usr/local/cuda-10.2/bin
+export CUDADIR=/usr/local/cuda-10.2
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-10.2/lib64
+export PATH=$PATH:$HOME/tools/arduino-1.8.13
+export WORKSPACE_ROOT=$WORKSPACE_ROOT:~/catkin_ws
+export TURTLEBOT3_MODEL=burger
 
 
   
